@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ferretería Peñaranda</title>
+  <!-- Fuente Google Fonts (Poppins) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Enlace al archivo CSS externo -->
+   <style>
+    /* RESET BÁSICO Y VARIABLES */
+:root {
+  --primary: #1e3a8a;       /* Azul oscuro elegante */
+  --primary-hover: #1e40af;
+  --accent: #f59e0b;        /* Naranja cálido */
+  --accent-hover: #d97706;
+  --danger: #ef4444;        /* Rojo advertencia */
+  --danger-hover: #dc2626;
+  --bg-color: #f1f5f9;      /* Gris claro de fondo */
+  --card-bg: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --radius: 12px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  padding-bottom: 40px;
+}
+
+/* NAVBAR */
+.navbar {
+  background: linear-gradient(135deg, var(--primary), #0f172a);
+  color: white;
+  padding: 24px 10%;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.logo h1 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.logo h1 span {
+  color: var(--accent);
+}
+
+.tagline {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  margin-top: 4px;
+}
+
+/* LAYOUT PRINCIPAL */
+.main-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+@media (min-width: 900px) {
+  .main-container {
+    grid-template-columns: 2.2fr 1fr;
+  }
+}
+
+.section-title {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: var(--primary);
+}
+
+/* GRID DE PRODUCTOS */
+.grid-productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card-producto {
+  background-color: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 20px;
+  position: relative;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-producto:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: var(--accent);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 20px;
+}
+
+.badge.pro {
+  background-color: var(--primary);
+}
+
+.img-placeholder {
+  font-size: 3rem;
+  text-align: center;
+  margin: 10px 0;
+  background-color: #f8fafc;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.card-producto h3 {
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+}
+
+.descripcion {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 15px;
+  flex-grow: 1;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border-color);
+  padding-top: 12px;
+}
+
+.precio {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* BOTONES */
+.btn-agregar {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-agregar:hover {
+  background-color: var(--accent-hover);
+}
+
+/* CARRITO */
+.carrito-card {
+  background-color: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 24px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 20px;
+}
+
+.carrito-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 12px;
+  margin-bottom: 15px;
+}
+
+.carrito-header h2 {
+  font-size: 1.25rem;
+  color: var(--primary);
+}
+
+.badge-contador {
+  background-color: var(--primary);
+  color: white;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.lista-carrito {
+  list-style: none;
+  max-height: 260px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+}
+
+.item-carrito {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--border-color);
+  font-size: 0.9rem;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-nombre {
+  font-weight: 600;
+}
+
+.item-cant {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.btn-eliminar {
+  background: none;
+  border: none;
+  color: var(--danger);
+  cursor: pointer;
+  font-size: 1rem;
+  margin-left: 10px;
+}
+
+.carrito-vacio {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 20px 0;
+  font-size: 0.9rem;
+}
+
+/* RESUMEN Y TOTALES */
+.carrito-footer {
+  border-top: 2px solid var(--border-color);
+  padding-top: 15px;
+}
+
+.resumen-linea {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.resumen-linea.total {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-top: 12px;
+  margin-bottom: 18px;
+}
+
+.btn-comprar {
+  width: 100%;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-comprar:hover {
+  background-color: var(--primary-hover);
+}
+
+.btn-vaciar {
+  width: 100%;
+  background-color: transparent;
+  color: var(--danger);
+  border: 1px solid var(--danger);
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-vaciar:hover {
+  background-color: var(--danger);
+  color: white;
+}
+   </style>
+</head>
+<body>
+
+  <!-- Encabezado principal -->
+  <header class="navbar">
+    <div class="logo">
+      <span class="icon">🛠️</span>
+      <h1>Ferretería <span>Peñaranda</span></h1>
+    </div>
+    <p class="tagline">Construyendo confianza para tus proyectos</p>
+  </header>
+
+  <main class="main-container">
+    <!-- Catálogo de productos -->
+    <section class="catalogo-section">
+      <h2 class="section-title">Catálogo de Productos</h2>
+      
+      <div class="grid-productos">
+        <div class="card-producto">
+          <div class="badge">Popular</div>
+          <div class="img-placeholder">🔨</div>
+          <h3>Martillo de Uña</h3>
+          <p class="descripcion">Acero forjado con mango ergonómico antideslizante.</p>
+          <div class="card-footer">
+            <span class="precio">₡4,500</span>
+            <button class="btn-agregar" onclick="agregarProducto('Martillo de Uña', 4500)">
+              + Agregar
+            </button>
+          </div>
+        </div>
+
+        <div class="card-producto">
+          <div class="img-placeholder">🪛</div>
+          <h3>Juego de Destornilladores</h3>
+          <p class="descripcion">Set de 6 piezas con puntas magnéticas aisladas.</p>
+          <div class="card-footer">
+            <span class="precio">₡6,000</span>
+            <button class="btn-agregar" onclick="agregarProducto('Juego de Destornilladores', 6000)">
+              + Agregar
+            </button>
+          </div>
+        </div>
+
+        <div class="card-producto">
+          <div class="img-placeholder">📏</div>
+          <h3>Cinta Métrica 5m</h3>
+          <p class="descripcion">Cinta de alta precisión con freno automático.</p>
+          <div class="card-footer">
+            <span class="precio">₡2,500</span>
+            <button class="btn-agregar" onclick="agregarProducto('Cinta Métrica 5m', 2500)">
+              + Agregar
+            </button>
+          </div>
+        </div>
+
+        <div class="card-producto">
+          <div class="badge pro">Profesional</div>
+          <div class="img-placeholder">🔌</div>
+          <h3>Taladro Percutor 750W</h3>
+          <p class="descripcion">Velocidad variable y empuñadura auxiliar.</p>
+          <div class="card-footer">
+            <span class="precio">₡35,000</span>
+            <button class="btn-agregar" onclick="agregarProducto('Taladro Percutor 750W', 35000)">
+              + Agregar
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Carrito de Compras -->
+    <aside class="carrito-section">
+      <div class="carrito-card">
+        <div class="carrito-header">
+          <h2>🛒 Carrito de Compras</h2>
+          <span class="badge-contador" id="contador-items">0</span>
+        </div>
+
+        <div class="carrito-body">
+          <ul id="lista-carrito" class="lista-carrito">
+            <li class="carrito-vacio">El carrito está vacío</li>
+          </ul>
+        </div>
+
+        <div class="carrito-footer">
+          <div class="resumen-linea">
+            <span>Subtotal</span>
+            <span id="subtotal">₡0.00</span>
+          </div>
+          <div class="resumen-linea">
+            <span>IVA (13%)</span>
+            <span id="iva">₡0.00</span>
+          </div>
+          <div class="resumen-linea total">
+            <span>Total a Pagar</span>
+            <span id="total">₡0.00</span>
+          </div>
+
+          <button class="btn-comprar" onclick="procesarCompra()">
+            Finalizar Compra
+          </button>
+          <button class="btn-vaciar" onclick="vaciarCarrito()">
+            Vaciar Carrito
+          </button>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Enlace al archivo JavaScript externo -->
+  <script src="67.js"></script>
+</body>
+</html>
